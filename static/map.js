@@ -26,10 +26,10 @@ d3.json("/bombed_locations", function(error, response) {
 	// 			.addTo(myMap);
 	// };
 
-	var bombed_cities = []
+	//var bombed_cities = []
 
 	for (var i = 0; i < bombarded_locations.length; i++) {
-		bombed_cities.push(
+		//bombed_cities.push(
 			L.circle(bombarded_locations[i].coordinates, {
 				stroke: false,
 				fillOpacity: 0.5,

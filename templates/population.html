@@ -1,41 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<title>Map of Europe</title>
-		<link rel="stylesheet" type="text/css" href="/static/css/style - Liz.css">
-		<link rel="shortcut icon" href="#" />
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
-		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.min.js"></script>
-		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-		<script src="//d3js.org/d3.v4.min.js"></script>
-		<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-		<script src="{{ url_for('static', filename="js/app7.1.js")}}"></script>
-	</head>
-	<body>
+<head>
+	<meta charset="utf-8">
+	<title>Map of Europe</title>
+	<link rel="shortcut icon" href="#" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+	<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.min.js"></script>
+	<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="//d3js.org/d3.v4.min.js"></script>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+	<script src="{{ url_for('static', filename="js/app7.1.js")}}"></script>
+	<link rel="stylesheet" type="text/css" href="/static/styles/style_Liz.css">
+</head>
+<body>
 	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md" id="dash">
-				<br>
-			<h6 style="font-size:1.5vw">WWII Era Statistics Visualizations</h6>
-			<br>
-		</div>
-			<div class="col-md" id="dash">
-				<br>
-			<!-- <select style="font-size:1vw" id="select" onChange="optionChanged(this.value)">
-					<option value="default">Select Year:</option>
-				</select>  -->
+			<div class="row">
+				<div class="col-xs-12 col-md-12 col-md-offset-0">						
+				<div class="jumbotron text-center">						
+					<h1>The II World War</h1>
+					<h4>by Giorgia, Liz and Olga</h4>
+				</div>
+				</div>
 			</div>
+			<!-- Nav Bar -->
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<div class="col-md-1"></div>
+					<div class="col-md-1"></div>
+					<div class="col-md-1"></div>
+					<a class="navbar-brand" href="index.html" style="color: blue; background-color: teal;">
+						<span class="nav-color">II War World</span>
+					</a>
+				</div>
+					
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Analysis Performed <span class="caret"></span></a>
+								<ul class="dropdown-menu">
+									<li><a href="bombarded_locations.html">Bombarded Locations</a></li>
+									<li><a href="map.html">Stations Analysis</a></li>
+									<li><a href="dash.html">Stations Analysis with Dash</a></li>
+									<li><a href="population.html">Migration Analysis</a></li>
+								</ul>
+				</div>
+				</div>
+			</nav>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-md" id="dash">
 			<br>
+		<h6 style="font-size:1.5vw">WWII Era Statistics Visualizations</h6>
+		<br>
+	</div>
+		<div class="col-md" id="dash">
+			<br>
+		<!-- <select style="font-size:1vw" id="select" onChange="optionChanged(this.value)">
+				<option value="default">Select Year:</option>
+			</select>  -->
 		</div>
-		<div class="row justify-content-left">
-		<div class="col-md" id="vis"></div>
-		<!-- <div class="row justify-content-left"></div> -->
-		<div class="col-md" id="bar"></div>
-		<div class="col-md" id="bar2"></div>
-		<script type="text/javascript" src="/static/app7.1.js"></script>
-  </body>
+		<br>
+	</div>
+	<div class="row justify-content-left">
+	<div class="col-md" id="vis"></div>
+	<!-- <div class="row justify-content-left"></div> -->
+	<div class="col-md" id="bar"></div>
+	<div class="col-md" id="bar2"></div>
+	<script type="text/javascript" src="/static/app7.1.js"></script>
+	</div>
+	</div>
+</body>
 </html>
