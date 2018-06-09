@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Map of Europe</title>
+		<link rel="stylesheet" type="text/css" href="/static/css/style - Liz.css">
+		<link rel="shortcut icon" href="#" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.13.0/d3.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+		<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.min.js"></script>
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+		<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+		<script src="//d3js.org/d3.v4.min.js"></script>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+		<script src="{{ url_for('static', filename="js/app7.1.js")}}"></script>
+	</head>
+	<body>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md" id="dash">
+				<br>
+			<h6 style="font-size:1.5vw">WWII Era Statistics Visualizations</h6>
+			<br>
+		</div>
+			<div class="col-md" id="dash">
+				<br>
+			<!-- <select style="font-size:1vw" id="select" onChange="optionChanged(this.value)">
+					<option value="default">Select Year:</option>
+				</select>  -->
+			</div>
+			<br>
+		</div>
+		<div class="row justify-content-left">
+		<div class="col-md" id="vis"></div>
+		<!-- <div class="row justify-content-left"></div> -->
+		<div class="col-md" id="bar"></div>
+		<div class="col-md" id="bar2"></div>
+		<script type="text/javascript" src="/static/app7.1.js"></script>
+  </body>
+</html>

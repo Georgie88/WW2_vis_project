@@ -1,0 +1,41 @@
+div{
+    
+    background-color: rgb(255, 255, 255);
+    margin:0;
+    padding-left: 200px;    
+    }
+
+path:hover {
+    fill-opacity: .45;
+}
+.tooltip {
+    position: relative;
+    width: 200px;
+    height: 135px;
+    padding: 2px;
+    padding-top: 8px;
+    font: 12px sans-serif;
+    color: #000;
+    text-align: center;
+    background: #edf8fb;
+    border: 0;
+    border-radius: 10px;
+  }
+svg{
+    
+    background-color: rgb(224, 231, 230);
+    margin:0;    
+    }  
+.bar{
+
+    fill: "tomato";    
+    } 
+
+.bar:hover{ 
+
+    fill-opacity: .45;    
+}
+.bar text{
+
+    text-anchor: middle;   
+    }    
