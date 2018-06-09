@@ -1,6 +1,7 @@
 # Dependencies
 import numpy as np 
 import pandas as pd
+import math
 import sqlalchemy
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
@@ -34,6 +35,10 @@ def index():
 @app.route('/bombarded_locations.html')
 def bombarded_locations():
     return render_template('bombarded_locations.html')
+
+@app.route('/bombed_location_dashboard.html')
+def bombed_location_dashboard():
+    return render_template('bombed_location_dashboard.html')
 
 @app.route('/map.html')
 def map():
@@ -70,6 +75,30 @@ def countries():
 
     return jsonify(targeted_data)
 
+@app.route("/metadata/<sample>")
+def metadata(sample):
+
+    print(sample)
+    
+    # Grab input
+    sample_id = str(country)
+
+    # Empty dictionary for data
+    sample_metadata = {}
+
+    # Grab metadata table
+    samples = session.query(bombarded_targets.TGT_COUNTRY, func.count(bombarded_targets.TGT_LOCATION)).\
+                group_by(bombarded_targets.TGT_COUNTRY).\
+                order_by(func.count(bombarded_targets.TGT_LOCATION).desc()).all()
+
+    # Loop through query & grab info
+    for info in samples:
+        if (sample_id == info.COUNTRY):
+            sample_metadata["COUNTRY"] = info.COUNTRY
+            sample_metadata["# Targeted Locations"] = info.TGT_LOCATION
+
+    return jsonify(sample_metadata)
+
 @app.route("/bombed_locations")
 def locations():
 
@@ -93,10 +122,43 @@ def locations():
                 targeted_locations['country'] = result[0]
                 targeted_locations['location_name'] = result[1]
                 targeted_locations['coordinates'] = [result[2],result[3]]
-                #targeted_locations['longitude'] = 
                 targeted_locations_langlot.append(targeted_locations)
 
     return jsonify(targeted_locations_langlot)
+
+@app.route("/bombed_locations_info/<country>")
+def tgt_countries(country):
+
+    print(country)
+
+    #grab input
+    tgt_country = str(country)
+
+    # Empty dictionary for data
+    tgt_country_info = []
+
+    # Grab metadata table
+    results = session.query(bombarded_targets.COUNTRY_FLYING_MISSION, bombarded_targets.TGT_COUNTRY, bombarded_targets.TGT_LOCATION, \
+                            bombarded_targets.TGT_TYPE, bombarded_targets.TGT_INDUSTRY, bombarded_targets.TGT_PRIORITY_EXPLANATION).all()
+                #.filter(bombarded_targets.TGT_LOCATION.isnot(None).all()
+
+                #.filter(bombarded_targets.TGT_LOCATION.isnot(None).all()
+                        
+    print(results[0:50])
+
+    # Loop through query & grab country name
+    for result in results:
+        tgt_country_loc_info = {}
+        tgt_country_loc_info['Country'] = result[1]
+        tgt_country_loc_info['Location'] = result[2]
+        tgt_country_loc_info['Loc_Type'] = result[3]
+        tgt_country_loc_info['Industry'] = result[4]
+        tgt_country_loc_info['Priority'] = result[5]
+        tgt_country_loc_info['Country_Flying_Mission'] = result[0]  
+        tgt_country_info.append(tgt_country_loc_info)          
+
+    return jsonify(tgt_country_info)
+
 
 @app.route('/stations')
 def stations():
@@ -122,10 +184,17 @@ def meteodata(station,date):
     except:
         prec='no data'
     try:
-        wind_s=weatherdata[(weatherdata['name']==station)&(weatherdata['Date']==date)]['WindGustSpd'][0]
+        wind_s_series = weatherdata[(weatherdata['name']==station)&(weatherdata['Date']==date)]['WindGustSpd']
+        print(wind_s_series[0])    
+        if (not math.isnan(wind_s_series[0])):
+            wind_s=wind_s_series[0]
+        else:
+            wind_s='no data'
     except:
         wind_s='no data'
     daydata={}
+   #if wind_s==NaN:
+    #    wind_s='no data'
     daydata['Mean T']=mean_t
     daydata['Prcpt']=prec
     daydata['Wind Sp']=wind_s
@@ -143,6 +212,6 @@ def location(station):
     stat_geo['lat']=lat
     stat_geo['long']=lon
     return jsonify(stat_geo)
-
+    
 if __name__ == "__main__":
     app.run(debug=True)

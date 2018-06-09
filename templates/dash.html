@@ -14,7 +14,7 @@
    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.2/dist/leaflet.css" />
    <script src="https://unpkg.com/leaflet@1.0.2/dist/leaflet.js"></script>
    <!-- Our CSS -->
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/style - Olga.css') }}">
+   <link rel="stylesheet" type="text/css" href="static/styles/style_Olga.css">
 
 </head>
 
@@ -25,10 +25,10 @@
 <br>
 <h1>WWII Weather Stations</h1>
     <div class="form-group">
-        <select class="custom-select" id='stat_select' onchange="getData(this.value)">
+        <select class="custom-select" id='stat_select' onchange="getData_st(this.value)">
           <option selected="#stat">Station Name</option>
         </select><br>
-        <select class="custom-select" id='date_select' onchange="getData(this.value)">
+        <select class="custom-select" id='date_select' onchange="getData_d(this.value)">
             <option selected="#date">Date</option>
           </select>
       </div>
@@ -43,20 +43,54 @@
   <br>
   <div id="map"></div>
   <script>
-  var myMap = L.map("map", {
+
+  </script>
+
+</div>
+</div>
+
+
+<!--SCRIPT-->
+<script src="http://d3js.org/d3.v3.js"></script>
+    <script>
+
+          var myMap = L.map("map", {
     center: [48.86, 2.35],
     zoom: 1,
 });
+var city;
 
-        function getData(data){
-         console.log(data);
+        function getData_st(data_s){
+            console.log(data_s);
+            city=data_s;
          //Station data
-             stat_loc_ = JSON.parse(getJSON('/location/' + data));
-             console.log(stat_loc_);
+            var map=document.getElementById('map');
+            stat_loc_ = JSON.parse(getJSON('/location/' + data_s));
+            console.log(stat_loc_)
+            myMap.removeLayer(marker);
+            marker = L.marker([stat_loc_['lat'], stat_loc_['long']], {
+                draggable: true,
+            // title: "My First Marker"
+                }).addTo(myMap);
+             //stat_loc_ = JSON.parse(getJSON('/location/' + data));
+             //console.log(stat_loc_);
              //var select_samp = document.getElementById("meteocard");
              //var text_samp = JSON.stringify(meteo_day);
              //var text_fin= text_samp.replace(/,/g, "\n");
              //select_samp.innerText=text_fin;
+        }
+
+        function getData_d(data_d){
+         console.log(city);
+         //Date data
+             stat_loc_ = JSON.parse(getJSON('/data/' + city +'/'+data_d));
+             console.log(stat_loc_);
+             console.log(data_d)
+             var meteo_day = document.getElementById("meteocard");
+             var text_samp = JSON.stringify(stat_loc_);
+             var text_fin= text_samp.replace(/,/g, "\n");
+             //console.log();
+             meteo_day.innerText=text_fin;
         }
 
 // Adding a tile layer (the background map image) to our map
@@ -68,23 +102,14 @@ L.tileLayer(
 
 var marker = L.marker([45.52, -122.67], {
   draggable: true,
-  title: "My First Marker"
+ // title: "My First Marker"
 }).addTo(myMap);
 
 // Binding a pop-up to our marker
 marker.bindPopup("Hello There!");
 
 
-  </script>
 
-</div>
-</div>
-</div>
-
-
-<!--SCRIPT-->
-<script src="http://d3js.org/d3.v3.js"></script>
-    <script>
         var stat_url='/stations';
         var date_url='/dates';
         statdata=[];
@@ -98,7 +123,7 @@ marker.bindPopup("Hello There!");
         //sort = sortOption.options[sortOption.selectedIndex].value;
 
         //Pulling the data from dropdown selection
-        function getData(data1){
+        //function getData(data1){
          //console.log(data2);
          //Station data
              //meteo_day = JSON.parse(getJSON('/data/' + data1+'/'+data2));
@@ -107,7 +132,7 @@ marker.bindPopup("Hello There!");
              //var text_samp = JSON.stringify(meteo_day);
              //var text_fin= text_samp.replace(/,/g, "\n");
              //select_samp.innerText=text_fin;
-        }
+        //}
 
 
         //Getting the names from app route
@@ -139,6 +164,8 @@ marker.bindPopup("Hello There!");
 
 
     </script>
+
+
 </div>
 </body>
 

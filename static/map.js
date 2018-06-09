@@ -10,6 +10,8 @@ L.tileLayer(
       "access_token=pk.eyJ1IjoiZ2lvcmdpYTg4IiwiYSI6ImNqaGI3dXczZjB0cWczMG1mcXE2N3Q1dW4ifQ." +
       "dCT5tvVqZhHaUgdpRkHaJw"
 	).addTo(myMap);
+
+var markerSize=100000;
 	
 // Grabbing the data with d3..
 d3.json("/bombed_locations", function(error, response) {
@@ -18,11 +20,25 @@ d3.json("/bombed_locations", function(error, response) {
 
 		console.log(bombarded_locations);
 
-		for (var i = 0; i < bombarded_locations.length; i++) {
-			L.marker(bombarded_locations[i].coordinates)
-				.bindPopup(bombarded_locations[i].location_name)
-				.addTo(myMap);
-	};
+	// 	for (var i = 0; i < bombarded_locations.length; i++) {
+	// 		L.marker(bombarded_locations[i].coordinates)
+	// 			.bindPopup(bombarded_locations[i].location_name)
+	// 			.addTo(myMap);
+	// };
+
+	var bombed_cities = []
+
+	for (var i = 0; i < bombarded_locations.length; i++) {
+		bombed_cities.push(
+			L.circle(bombarded_locations[i].coordinates, {
+				stroke: false,
+				fillOpacity: 0.5,
+				color: "black",
+				fillColor: "black",
+				radius: markerSize
+			}).bindPopup(bombarded_locations[i].location_name)
+			.addTo(myMap);
+	}
 
 });
 
