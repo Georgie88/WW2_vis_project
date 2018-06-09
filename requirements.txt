@@ -31,4 +31,3 @@ SQLAlchemy==1.2.7
 Werkzeug==0.14.1
 
 wincertstore==0.2
-math==9.2
